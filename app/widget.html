@@ -28,6 +28,7 @@
           <li class="update-task-btn">Update task</li>
           <li class="delete-task-btn">Delete task</li>
           <li class="backBtn">back to home</li>
+          <li class="timeline-btn">TimeLine</li>
       </ul>
   </header>
   <main class="display-wrapper">
@@ -37,8 +38,13 @@
 
   <!-- Form-wrapper -->
   <div class="task-create-form-wrapper">
+    <header class="task-form-header">
+      <ul>
+          <li class="backBtn-form">back to home</li>
+      </ul>
+    </header>
     <div class="form-container">
-      <h2>task Form</h2>
+      <h2>Create Task</h2>
       <form id="taskForm">
           <div class="form-group">
               <label for="taskOwner">Task Owner</label>
@@ -58,13 +64,13 @@
             <span class="error">Date is required</span>
           </div>
 
-          <div class="for-groups">
+          <div class="form-group">
             <label for="contacts">Contact</label>
             <select name="contacts" id="contacts"></select>
             <span class="error"></span>
           </div>
 
-          <div class="for-groups">
+          <div class="form-group">
             <label for="accounts">Accountt</label>
             <select name="accounts" id="accounts"></select>
             <span class="error"></span>
@@ -83,7 +89,7 @@
               <span class="error">priority is required</span>
           </div>
 
-          <div class="form-groups">
+          <div class="form-group">
             <label for="status">Status</label>
             <select name="status" id="status">
               <option value="" disabled selected>Select status</option>
@@ -99,6 +105,11 @@
       </form>
   </div>
   </div>
-  <script src="widget.js"></script>
+
+  <!-- Time Line - Track Task -->
+   <div class="timeline-wrapper">
+
+   </div>
+  <script src="widget.js" type="module"></script>
 </body>
 </html>
