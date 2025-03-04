@@ -9,47 +9,40 @@ body{
     height: 100vh;
     width: 100vw;
     font-size: small;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
 }
 /* Lead List Style */
 .task-list-wrapper{
-    height: 100%;
-    width: 100%;
     display: flex;
-    padding: 20px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    overflow-y: scroll;
 }
 .list-page-header{
-    margin: 1rem auto;
-    width: 95%;
-    height: 5rem;
+    width: 100%;
+    height: 2.5rem;
     background-color: rgb(194, 186, 194);
     color: white;
     display: flex;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
-    flex-direction: row;
-    padding: 0.5rem;
+    padding: 0.3rem;
 }
 .create-task-btn{
     width: 10rem;
     border: none;
-    padding: 0.7rem;
+    padding: 0.9rem;
     background-color: rgba(30, 0, 255, 0.358);
     color: white;
     border-radius: 0.2rem;
     margin-right: 2rem;
+    margin-bottom: 0.5rem;
     transition: background-color 0.5s ease-in-out;
     &:hover{
         background-color: rgba(30, 0, 255, 0.555);
     }
+}
+.task-list-wrapper .filter-by-priority select{
+    width: 100px;
 }
 .list-wrapper{
     height: 100%;
@@ -59,7 +52,7 @@ body{
 }
 .list-wrapper table{
     height: 95%;
-    width: 95%;
+    width: 100%;
     padding: 1rem;
     border-radius: 0.2rem;
 }
@@ -71,7 +64,6 @@ td, th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px 5px;
-    /* width: 95%; */
 }
 .tbl-header-list{
     background-color: rgba(128, 128, 128, 0.447);
@@ -86,21 +78,20 @@ td, th {
 
 /* Lead Display Style */
 .detailed-view-wrapper{
-    height: 100%;
-    width: 100%;
+    height: inherit;
+    width: inherit;
     display: none;
     flex-direction: column;
-    justify-content: center;
-    padding: 10px;
 }
 .task-display-header{
     background-color: grey;
     padding: 0.6rem;
     display: flex;
+    color: white;
     width: 100%;
-    margin-bottom:2rem ;
+    margin-bottom:1rem ;
     justify-content: center;
-    margin-top: 10px;
+    /* margin-top: 10px; */
 }
 ul{
     display: flex;
@@ -122,18 +113,52 @@ li{
 .display-wrapper{
     display: flex;
     justify-content: center;
+    /* overflow-y: auto; */
+}
+/* .list-in-detailed-view-container{
+    width: 17%;
+} */
+/* .primary-detail-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+.left-panel-detailed-view{
+    width: 69%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     overflow-y: auto;
 }
-.display-tbl{
+/* .right-panel-detailed-view{
+    width: 17%;
+    height: 100%;
+    overflow-y: scroll;
+} */
+.sections-in-detailed-view{
+    background-color: white;
+    border-radius: 0.3rem;
+    padding: 2rem;
+    width: 90%;
+    margin-bottom: 1rem;
+    display: flex;
+    /* justify-content: left; */
+    align-items: start;
+    font-size: 14px;
+}
+.sections-in-detailed-view>table, .sections-in-detailed-view>table td{
     border: none;
-    width: 80%;
 }
-.display-tbl td{
+.sections-in-detailed-view>table td{
+    padding: 0.6rem 1.3rem;
     text-align: left;
-    padding: 0.7rem;
-    width: 1.5rem;
 }
-
+.sections-in-detailed-view td:first-child{
+    font-weight: bold;
+    text-align: right;
+}
 /* create Lead Form Style */
 .task-create-form-wrapper{
     height: 100%;
@@ -142,19 +167,13 @@ li{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* padding: 10px; */
     overflow-y: scroll;
     padding:40px 10px 10px ;
-    /* background-color: red; */
 }
 .form-container {
-    /* background: white; */
     padding: 20px;
-    /* border-radius: 8px; */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    /* mawidth: 90%; */
-    /* overflow-y: scroll; */
 }
 .backBtn-form{
     list-style-type: none;
@@ -162,7 +181,6 @@ li{
     border-radius: 3px;
     padding: 0.6rem;
     margin-top: 40px;
-    /* margin-right: 0.5rem; */
     transition: background-color 0.5s ease-in-out;
     &:hover{
         cursor: pointer;
@@ -191,22 +209,10 @@ li{
     text-align: center;
     margin-bottom: 20px;
 }
-/* .backBtn-form{
-    width: 100%;
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-} */
 /* Form Styles */
 .form-group {
     margin-bottom: 15px;
     position: relative;
-    /* background-color: red; */
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -11,6 +11,27 @@
    <!-- list-wrapper -->
    <div class="task-list-wrapper">
     <header class="list-page-header">
+      <div class="filter-by-priority">
+        <select name="priority" id="priority">
+          <option value="" selected>--Priority--</option>
+          <option value="High">High</option>
+          <option value="Highest">Highest</option>
+          <option value="Low">Low</option>
+          <option value="Lowest">Lowest</option>
+          <option value="Normal">Normal</option>
+        </select>
+      </div>
+      <div class="filter-by-status">
+        <select name="status" id="status">
+          <option value="" selected>--Status--</option>
+          <option value="Not Started">Not Started</option>
+          <option value="Deffered">Deffered</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Completed">Completed</option>
+          <option value="Waiting For Input">Waiting For Input</option>
+        </select>
+      </div>
+      <div class="filter-by-duedate"></div>
       <button class="create-task-btn">Create task</button>
     </header>
     <sectoin class="list-wrapper">
@@ -28,11 +49,21 @@
           <li class="update-task-btn">Update task</li>
           <li class="delete-task-btn">Delete task</li>
           <li class="backBtn">back to home</li>
-          <li class="timeline-btn">TimeLine</li>
       </ul>
   </header>
   <main class="display-wrapper">
-      <table class="display-tbl"></table>
+    <!-- <div class="list-in-detailed-view-container"></div> -->
+      <div class="left-panel-detailed-view">
+        <div class="tracking-container sections-in-detailed-view">
+          <table></table>
+        </div>
+        <div class="primary-detail-container sections-in-detailed-view">
+          <table></table>
+        </div>
+        <div class="task-information-container sections-in-detailed-view">
+          <table></table>
+        </div>
+      </div>
   </main>
   </div>
 
@@ -105,11 +136,6 @@
       </form>
   </div>
   </div>
-
-  <!-- Time Line - Track Task -->
-   <div class="timeline-wrapper">
-
-   </div>
   <script src="widget.js" type="module"></script>
 </body>
 </html>
