@@ -328,8 +328,14 @@ function createTask(taskId) {
 
         fields.forEach(field => {
             const input = document.getElementById(field.id);
+            console.log(input);
+            
+            console.log((input.parentNode).querySelector(".error"));
+            
             const errorSpan = input.nextElementSibling;
-
+            console.log(errorSpan);
+            
+            
             if (!input.value.trim() || (field.pattern && !field.pattern.test(input.value))) {
                 errorSpan.textContent = field.message;
                 errorSpan.style.display = "block";
@@ -409,8 +415,8 @@ function createTask(taskId) {
     });
 }
 // Filter Tasks By Status and Priority
-let statusSelect = document.querySelector("#status");
-let prioritySelect = document.querySelector("#priority");
+let statusSelect = document.querySelector(".status");
+let prioritySelect = document.querySelector(".priority");
 
 statusSelect.addEventListener("change", (e) => {
     console.log(statusSelect.value);
