@@ -16,21 +16,23 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 98.7%;
 }
 .list-page-header{
-    width: 100%;
+    width: 99.7%;
     height: 2.5rem;
     background-color: rgb(194, 186, 194);
     color: white;
     display: flex;
     justify-content: right;
     align-items: center;
-    padding: 0.3rem;
+    padding: 0.6rem;
+    margin: auto;
 }
 .create-task-btn{
     width: 10rem;
     border: none;
-    padding: 0.9rem;
+    padding: 0.5rem;
     background-color: rgba(30, 0, 255, 0.358);
     color: white;
     border-radius: 0.2rem;
@@ -46,9 +48,10 @@ body{
 }
 .list-wrapper{
     height: 100%;
-    width: 100%;
+    width: 95%;
     display: flex;
     justify-content: center;
+    padding: 3rem;
 }
 .list-wrapper table{
     height: 95%;
@@ -60,13 +63,16 @@ body{
     border: 1px solid black;
     border-collapse: collapse;
 }
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px 5px;
-}
+
 .tbl-header-list{
     background-color: rgba(128, 128, 128, 0.447);
+}
+/* span:nth-child(2){
+    display: inline-block;
+    margin-right: 0;
+} */
+span>i{
+    cursor: pointer;
 }
 .tbl-body-list{
     transition: background-color 0.6s ease-in-out;
@@ -75,7 +81,20 @@ td, th {
     cursor: pointer;
     background-color: rgba(128, 128, 128, 0.247);
 }
+.tbl-header-list>tr th{
+    padding: 5px;
+}
+.th-container{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
 
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 10px;
+}
 /* Lead Display Style */
 .detailed-view-wrapper{
     height: inherit;
@@ -159,6 +178,26 @@ li{
     font-weight: bold;
     text-align: right;
 }
+.lookup-menu {
+    display: none; /* Hidden by default */
+    position: absolute;
+    flex-direction: column;
+    width: fit-content;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 8px;
+    list-style: none;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.lookup-menu li {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.lookup-menu li:hover {
+    background: #f0f0f0;
+}
 /* create Lead Form Style */
 .task-create-form-wrapper{
     height: 100%;
@@ -174,6 +213,9 @@ li{
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 .backBtn-form{
     list-style-type: none;
@@ -187,7 +229,7 @@ li{
         background-color: blueviolet;
     }
 }
-.task-form{
+#taskform{
     width: 90%;
     padding: 20px;
     flex-direction: column;
@@ -201,21 +243,28 @@ li{
     padding: 1rem;
     display: flex;
     width: 100%;
-    margin-top:30px;
+    margin-top:50px;
     justify-content: center;
     align-items: center;
+    &>*{
+        justify-content: end;
+        margin-left: 1rem;
+    }
 }
 .form-container h2 {
     text-align: center;
     margin-bottom: 20px;
 }
+
 /* Form Styles */
 .form-group {
-    margin-bottom: 15px;
+    width: 65%;
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    /* background-color: blue; */
+    margin: 0 auto 15px;
 }
 label {
     font-weight: bold;
@@ -223,19 +272,20 @@ label {
     margin-bottom: 7px;
 }
 input , select{
-    width: 80%;
+    width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
 }
-.form-group>*{
+/* .form-group>*{
     margin-left:10%;
-}
-input{
-    width: 77.5%;
+} */
+input{ 
+    width: 96%;
     padding: 8px;
-}
+ }
+
 input:focus {
     border-color: #007bff;
     outline: none;
@@ -273,7 +323,8 @@ input:focus {
 
 /* Button */
 button {
-    width: 80%;
+    display: block;
+    width: 65%;
     background: #007bff;
     color: white;
     border: none;
@@ -281,8 +332,7 @@ button {
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 10px;
-    margin-left: 10%;
+    margin: 15px auto 0;
 }
 button:hover {
     background: #0056b3;

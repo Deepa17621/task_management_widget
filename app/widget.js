@@ -21,12 +21,49 @@ function getListAndPopulateToTable() {
 
             let trForHeader = document.createElement("tr");
             list_tbl_header.appendChild(trForHeader);
-            trForHeader.innerHTML = `<th>Due Date</th>
-                          <th>Status</th>
-                          <th>Priority</th>
-                          <th>RelatedTo</th>
-                          <th>task Owner</th>`;
+            trForHeader.innerHTML = `<th><div class="th-container"><span>Due Date</span> <span id="due-date-sort-bar"><i class="fa-solid fa-bars"></i></span></div>
+                                        <ul class="lookup-menu">
+                                            <li class="asc">asc <i class="fa-solid fa-arrow-up"></i></li>
+                                            <li class="desc">desc <i class="fa-solid fa-arrow-down"></i></li>
+                                            <li class="unsort">unsort</li>
+                                        </ul>
+                                     </th>
+                                    <th><div class="th-container"><span>Status</span> <span id="status-sort-bar-string"><i class="fa-solid fa-bars"></i></span></div>
+                                        <ul class="lookup-menu">
+                                            <li class="asc">asc <i class="fa-solid fa-arrow-up"></i></li>
+                                            <li class="desc">desc <i class="fa-solid fa-arrow-down"></i></li>
+                                            <li class="unsort">unsort</li>
+                                        </ul>      
+                                    </th>
+                                    <th><div class="th-container"><span>Priority</span> <span id="priority-sort-bar-string"><i class="fa-solid fa-bars"></i></span></div>
+                                        <ul class="lookup-menu">
+                                            <li class="asc">asc <i class="fa-solid fa-arrow-up"></i></li>
+                                            <li class="desc">desc <i class="fa-solid fa-arrow-down"></i></li>
+                                            <li class="unsort">unsort</li>
+                                        </ul>
+                                    </th>
+                                    <th>RelatedTo</th>
+                                    <th><div class="th-container"><span>task Owner</span> <span id="task-owner-sort-bar-string"><i class="fa-solid fa-bars"></i></span></div>
+                                        <ul class="lookup-menu">
+                                            <li class="asc">asc <i class="fa-solid fa-arrow-up"></i></li>
+                                            <li class="desc">desc <i class="fa-solid fa-arrow-down"></i></li>
+                                            <li class="unsort">unsort</li>
+                                        </ul>
+                                    </th>
+                                    <th><div class="th-container"><span>Phone</span> <span id="phone-sort-bar-long"><i class="fa-solid fa-bars"></i></span></div>
+                                        <ul class="lookup-menu">
+                                            <li class="asc">asc 0-9<i class="fa-solid fa-arrow-up"></i></li>
+                                            <li class="desc">desc 9-0<i class="fa-solid fa-arrow-down"></i></li>
+                                            <li class="unsort">unsort</li>
+                                        </ul>
+                                    </th>
+                          `;
+            let phoneList = ["9876543210", "8765432190", "7654321890", "6543217890"];
+            let n = 0;
             (listOfArr.data).forEach(taskObj => {
+                if (n == 4) {
+                    n = 0;
+                }
                 let trForBody = document.createElement("tr");
                 list_tbl_body.appendChild(trForBody);
                 trForBody.setAttribute("id", `${taskObj.id}`);
@@ -34,7 +71,9 @@ function getListAndPopulateToTable() {
                  <td class="status" id="${taskObj.Status}">${taskObj.Status ? taskObj.Status : "-"}</td>
                  <td class="priority" id="${taskObj.Priority}">${taskObj.Priority ? taskObj.Priority : "-"}</td>
                  <td class="RelatedTo">${taskObj.RelatedTo ? taskObj.RelatedTo : "-"}</td>
-                 <td class="taskOwner">${taskObj.Owner.name ? taskObj.Owner.name : "-"}</td>`;
+                 <td class="taskOwner">${taskObj.Owner.name ? taskObj.Owner.name : "-"}</td>
+                 <td class="phone">${phoneList[n++]}</td>
+                 `;
                 trForBody.innerHTML = str;
                 trForBody.addEventListener("click", (e) => {
                     displayTask(taskObj.id);
@@ -57,6 +96,66 @@ createtaskBtn.addEventListener("click", (e) => {
     createTask(null);
 });
 
+// Event Listener For Sort DropDown - New Feature Need to Be Added - High Priority
+list_tbl_header.addEventListener("click", (e) => {
+    console.log(e.target);
+
+    (e.target.closest("th").querySelector(".lookup-menu")).style.display = "flex";
+
+    (document.querySelectorAll(".lookup-menu")).forEach(element => {
+        if (element.style.display === "flex" && (element !== (e.target.closest("th").querySelector(".lookup-menu")))) {
+            element.style.display = "none";
+        }
+    });
+
+    let currentLookUp = e.target.closest("th").querySelector(".lookup-menu");
+    let allTH = Array.from((list_tbl_header.querySelector("tr").children));
+    currentLookUp.addEventListener("click", (event) => {
+        let rows = Array.from(list_tbl_body.rows);
+        let intialArr = rows;
+        let order = allTH.indexOf(currentLookUp.closest("th"));
+
+        rows.sort((rowA, rowB) => {
+            let due_dateA = rowA.cells[order].innerText;
+            let due_dateB = rowB.cells[order].innerText;
+            if(order === 0){
+                return (new Date(due_dateA)).getTime() - (new Date(due_dateB)).getTime();
+            }
+            else return due_dateA.localeCompare(due_dateB);
+        });
+        if (event.target.classList.contains("asc") || (event.target.classList.contains("fa-arrow-up"))) {
+            rows.forEach(row => {
+                list_tbl_body.appendChild(row);
+            });
+            event.stopPropagation();
+        } else if (event.target.classList.contains("desc") || (event.target.classList.contains("fa-arrow-down"))) {
+            for (let i = rows.length - 1; i >= 0; i--) { 
+                list_tbl_body.appendChild(rows[i]);
+            }
+            event.stopPropagation();
+        } else if (event.target.classList.contains("unsort")) {
+            intialArr.forEach(element => {
+                list_tbl_body.appendChild(element);
+            });
+            event.stopPropagation();
+        }
+        currentLookUp.style.display = "none";
+    });
+});
+
+// Hide Lookup's When Lookup's are not focused
+// document.addEventListener("click", function (event) {
+//     console.log(event.target);
+
+//     let lookups = document.querySelectorAll(".lookup-menu");
+//     lookups.forEach(element => {
+//         if(!element.contains(event.target)){
+//             element.style.display = "none";
+//         }
+//     });
+//     event.stopPropagation();
+// });
+
 // 2. Display Page Script
 let display_tbl = document.querySelector(".display-tbl");
 const updateBtn = document.querySelector(".update-task-btn");
@@ -70,7 +169,6 @@ function deleteTask(taskId) {
             list_wrapper.style.display = "flex";
             form_wrapper.style.display = "none";
             display_wrapper.style.display = "none";
-
             getListAndPopulateToTable();
             return;
         });
@@ -327,15 +425,7 @@ function createTask(taskId) {
         let isValid = true;
 
         fields.forEach(field => {
-            const input = document.getElementById(field.id);
-            console.log(input);
-            
-            console.log((input.parentNode).querySelector(".error"));
-            
             const errorSpan = input.nextElementSibling;
-            console.log(errorSpan);
-            
-            
             if (!input.value.trim() || (field.pattern && !field.pattern.test(input.value))) {
                 errorSpan.textContent = field.message;
                 errorSpan.style.display = "block";
@@ -347,9 +437,7 @@ function createTask(taskId) {
         if (isValid) {
             let ownerTaggg = (document.querySelector("#taskOwner"));
             let ownerId = ownerTaggg.value;
-            console.log(ownerId);
             let ownerName = ownerTaggg.options[ownerTaggg.selectedIndex].text;
-            console.log(ownerName);
             let recordData = {
                 "Subject": `${(document.querySelector("#subject")).value}`,
                 "Due_Date": `${(document.querySelector("#dueDate")).value}`,
@@ -360,7 +448,6 @@ function createTask(taskId) {
                     "id": `${ownerId}`,
                 },
             }
-            console.log(recordData);
 
             if (!taskId) {
                 ZOHO.CRM.API.insertRecord({ Entity: "Tasks", APIData: recordData, Trigger: ["workflow"] }).then(function (data) {
@@ -373,13 +460,10 @@ function createTask(taskId) {
                 });
             }
             else {
-                console.log("entered into Update");
                 recordData.id = taskId;
                 let ownerTaggg = (document.querySelector("#taskOwner"));
                 let ownerId = ownerTaggg.value;
                 let ownerName = ownerTaggg.options[ownerTaggg.selectedIndex].text;
-                console.log(ownerId);
-                console.log(ownerName);
                 var config = {
                     Entity: "Tasks",
                     APIData: {
@@ -395,10 +479,6 @@ function createTask(taskId) {
                     },
                     Trigger: ["workflow"]
                 }
-                console.log("before update");
-
-                console.log(config);
-
                 ZOHO.CRM.API.updateRecord(config)
                     .then(function (data) {
                         console.log(data);
@@ -421,12 +501,12 @@ let prioritySelect = document.querySelector(".priority");
 statusSelect.addEventListener("change", (e) => {
     console.log(statusSelect.value);
     let allRows = list_tbl_body.querySelectorAll("tr");
-            allRows.forEach(row => {
-                let statusTd = row.querySelector(".status");
-                let statusValueFromElementId = statusTd.id;
-                console.log(statusValueFromElementId);
-                row.style.display = statusSelect.value == ""?"table-row":(statusValueFromElementId === statusSelect.value) ? "table-row" : "none";
-            });
+    allRows.forEach(row => {
+        let statusTd = row.querySelector(".status");
+        let statusValueFromElementId = statusTd.id;
+        console.log(statusValueFromElementId);
+        row.style.display = statusSelect.value == "" ? "table-row" : (statusValueFromElementId === statusSelect.value) ? "table-row" : "none";
+    });
     // ZOHO.CRM.API.searchRecord({ Entity: "Tasks", Type: "criteria", Query:`(Status:equals:${statusSelect.value})`, delay: false })
     //     .then(function (data) {
     //         console.log("Filter Records By Status- Status");
